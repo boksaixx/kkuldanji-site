@@ -70,3 +70,31 @@ h2{font-size:23px;font-weight:900;letter-spacing:-.02em;line-height:1.35;margin:
 .backline{padding:20px 0 0}
 .backline a{text-decoration:none;font-size:14px;font-weight:700;color:var(--mute)}
 @media(max-width:480px){.top .bee{width:110px}h1{font-size:27px}}
+
+/* about section (index) */
+.about{background:var(--paper);border-radius:22px;padding:26px 26px 22px;margin:22px 0 8px}
+.about h2{font-size:20px;font-weight:900;margin:0 0 12px;letter-spacing:-.01em}
+.about p{font-size:15.5px;color:#4E5968;margin-bottom:14px;line-height:1.75}
+.about p b{color:var(--ink)}
+.who2{display:grid;grid-template-columns:60px 1fr;gap:14px;align-items:start;padding:16px 0;border-top:1px solid var(--line)}
+.who2 .ic{width:60px}
+.who2 .ic .av2{width:52px;height:52px;border-radius:50%;background:var(--peach);display:grid;place-items:center;font-weight:900;font-size:19px}
+.who2 h3{font-size:16px;font-weight:900;margin-bottom:4px}
+.who2 p{font-size:14.5px;margin:0;color:#4E5968;line-height:1.7}
+.fields{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 4px}
+.fields span{font-size:13px;font-weight:700;background:var(--cream);border:1.5px solid var(--line);border-radius:999px;padding:6px 12px}
+.rule{background:var(--sun);border-radius:14px;padding:14px 16px;font-size:14.5px;font-weight:600;line-height:1.65;margin-top:16px}
+.secline{font-size:12.5px;font-weight:800;color:var(--mute);letter-spacing:.04em;margin:30px 0 10px}
+/* longer-form body */
+.body h2{margin-top:36px}
+.sub{font-size:17px;font-weight:800;margin:22px 0 8px;letter-spacing:-.01em}
+.tick{list-style:none;display:grid;gap:10px;margin:12px 0 18px}
+.tick li{display:flex;gap:10px;font-size:15.5px;color:#4E5968;line-height:1.7}
+.tick li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--pink);margin-top:11px}
+.tick li b{color:var(--ink)}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;margin:14px 0 18px;background:var(--paper);border-radius:16px;overflow:hidden}
+.tbl th{background:var(--ink);color:#fff;font-size:12.5px;font-weight:800;text-align:left;padding:11px 14px}
+.tbl td{padding:12px 14px;border-top:1px solid var(--line);color:#4E5968;vertical-align:top}
+.tbl td:first-child{font-weight:800;color:var(--ink);white-space:nowrap}
+.note{background:#F5F6F8;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#4E5968;line-height:1.7;margin:16px 0}
+.note b{color:var(--ink)}
