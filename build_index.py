@@ -38,7 +38,7 @@ html = (
     '<meta name="viewport" content="width=device-width, initial-scale=1">'
     '<title>꿀단지. — U+ Enterprise혁신그룹 위클리</title>'
     '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">'
-    '<link rel="stylesheet" href="style.css"></head><body><div class="mag">'
+    '<link rel="stylesheet" href="style.css"><script src="gate.js"></script></head><body><div class="mag">'
     '<header class="top"><div class="row"><span>U+ Enterprise혁신그룹 위클리</span><span>월·수·금</span></div>'
     '<div class="logo">꿀단지<span>.</span></div>'
     '<div class="tag">다섯 사업 꽃밭을 돌아가며, 비비🐝가 떠주는 주 3회 꿀 한 스푼</div>'
