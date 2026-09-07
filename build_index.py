@@ -6,7 +6,7 @@ issues = json.loads((root / "issues.json").read_text(encoding="utf-8"))
 issues.sort(key=lambda x: x["no"], reverse=True)
 
 FIELDS = [("전체", "all"), ("유선", "유선"), ("무선", "무선"),
-          ("SMB", "SMB"), ("모빌리티", "모빌리티"), ("보안", "보안")]
+          ("SMB", "SMB"), ("모빌리티", "모빌리티"), ("보안", "보안"), ("AI", "AI")]
 BEE = '<svg class="bee" viewBox="0 0 150 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="꿀벌 비비"><ellipse cx="78" cy="42" rx="26" ry="14" fill="#DDF3F7" stroke="#9FD6E2" stroke-width="1.5" transform="rotate(-25 78 42)"/><ellipse cx="112" cy="40" rx="22" ry="12" fill="#DDF3F7" stroke="#9FD6E2" stroke-width="1.5" transform="rotate(20 112 40)"/><ellipse cx="92" cy="76" rx="46" ry="30" fill="#FFD35C" stroke="#2B2A28" stroke-width="3"/><path d="M74 49 q -8 27 0 54 M96 46 q -8 30 0 60 M118 52 q -7 24 0 46" stroke="#2B2A28" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M138 76 l 10 0" stroke="#2B2A28" stroke-width="3" stroke-linecap="round"/><circle cx="52" cy="72" r="5" fill="#2B2A28"/><circle cx="54" cy="70" r="1.6" fill="#fff"/><path d="M46 84 q 6 5 12 0" stroke="#2B2A28" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="62" cy="86" r="4" fill="#FF9FA8" opacity=".7"/><path d="M60 50 q -4 -14 -14 -18 M70 47 q 2 -14 -6 -22" stroke="#2B2A28" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="46" cy="32" r="3" fill="#2B2A28"/><circle cx="64" cy="25" r="3" fill="#2B2A28"/></svg>'
 
 nav_items = []

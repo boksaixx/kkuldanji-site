@@ -26,23 +26,23 @@ build_index.py    ← issues.json → index.html
 vercel.json       ← 배포 설정
 ```
 
-## 새 호 발행하는 법 (매주 월·수·금)
-1. Claude에게: "이번 주 <사업> 꽃밭 만들어줘" → 완성된 HTML을 받는다
-2. 그 파일을 `issues/` 에 저장 (예: `002-2026-09-04-security.html`)
-   - 파일명 규칙: `번호-날짜-사업영문.html`
-3. `issues.json` 맨 위에 항목 하나 추가:
-   ```json
-   {
-     "no": 2, "field": "보안", "emoji": "🔐",
-     "date": "2026-09-04", "dow": "금",
-     "file": "issues/002-2026-09-04-security.html",
-     "title": "제목", "dek": "한 줄 설명"
-   }
-   ```
-4. `python build_index.py` 실행 (index.html 갱신)
+## 발행 리듬 (2026.09 개편)
+
+- **꽃밭 6개**: 유선 🌊 · 무선 📡 · SMB 🏪 · 모빌리티 🚗 · 보안 🔐 · **AI 🤖**
+- **하루 2~3호**를 묶어서 발행. 그중 한 편은 되도록 AI 꽃밭 (전 사업에 걸치는 주제라 자주 나옴)
+- **최근 3일 이내 뉴스**만 커버로 씀. 없으면 최대 3일까지, 그것도 없으면 "오늘은 조용했어요" 한 줄 호
+- 로테이션 예시: 월 = AI + 유선 / 수 = 보안 + 모빌리티 / 금 = AI + 무선 + SMB
+
+## 새 호 발행하는 법
+
+1. Claude에게 한 줄로 요청: **"오늘 AI랑 보안 꽃밭 만들어줘"** (2~3개 한 번에 가능)
+2. Claude가 최근 3일 뉴스를 검색해서 **완성된 HTML 파일들 + 갱신된 issues.json**을 돌려줌
+3. 받은 HTML을 `issues/` 폴더에 추가 (기존 호는 그대로 둠 — 계속 쌓이는 구조)
+   - 파일명 규칙: `번호-날짜-영문.html` (예: `007-2026-09-09-ai.html`)
+4. `issues.json`을 받은 내용으로 갱신 — **덮어쓰기가 아니라 목록에 줄이 추가된 버전**임
 5. GitHub에 커밋·푸시 → **Vercel이 30초 안에 자동 배포**
 
-> build_index.py를 못 돌리는 환경이면, 그 단계도 Claude에게 맡기세요. issues.json만 주면 새 index.html을 만들어 드립니다.
+> `build_index.py`를 직접 못 돌려도 됩니다. Claude가 `index.html`까지 만들어 줍니다.
 
 ## Vercel 최초 연결 (한 번만)
 1. vercel.com 로그인 → **Add New → Project**
