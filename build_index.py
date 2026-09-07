@@ -18,9 +18,12 @@ ABOUT = """<section class="about">
 <div class="who2"><div class="ic"><div class="av2">P</div></div>
 <div><h3>에디터 P — 사람</h3><p>비비가 물어온 걸 다듬고, 우리 사업 관점에서 해석을 붙여요. 존댓말을 쓰고 가끔 TMI를 흘려요. 틀리면 다음 호에서 정정합니다.</p></div></div>
 <div class="fields"><span>🌊 유선</span><span>📡 무선</span><span>🏪 SMB</span><span>🚗 모빌리티</span><span>🔐 보안</span><span>🤖 AI</span></div>
+<div class="rule" style="background:#2B2A28;color:#fff;display:flex;align-items:center;gap:12px;justify-content:space-between"><span>📲 <b>앱으로 설치</b>하면 홈 화면에서 바로 열려요</span><a href="#" onclick="window.kkInstall&&window.kkInstall();return false" style="flex:none;background:#FFD35C;color:#2B2A28;text-decoration:none;border-radius:999px;padding:7px 14px;font-size:13.5px;font-weight:800">설치</a></div>
 <div class="rule">📌 <b>세 가지 약속</b><br>① 최근 3일 이내 뉴스만 다뤄요. 오래된 건 배경 설명에만 씁니다.<br>② 새 소식이 없는 날은 "오늘은 조용했어요" 한 줄만 보내요. 억지로 안 채웁니다.<br>③ 사내 수치는 지어내지 않아요. 확인이 필요한 건 그렇다고 적습니다.</div>
 </section>
 <div class="secline">지난 호 — 최신순</div>"""
+
+HEAD = '''<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#9FE0EC"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="꿀단지"><link rel="icon" href="/icons/icon-192.png">'''
 
 nav_items = []
 for name, key in FIELDS:
@@ -51,7 +54,7 @@ html = (
     '<meta name="viewport" content="width=device-width, initial-scale=1">'
     '<title>꿀단지. — U+ Enterprise혁신그룹 위클리</title>'
     '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">'
-    '<link rel="stylesheet" href="style.css"><script src="gate.js"></script></head><body><div class="mag">'
+    '<link rel="stylesheet" href="style.css">' + HEAD + '<script src="/config.js"></script><script src="/gate.js"></script></head><body><div class="mag">'
     '<header class="top"><div class="row"><span>U+ Enterprise혁신그룹 위클리</span><span>월·수·금</span></div>'
     '<div class="logo">꿀단지<span>.</span></div>'
     '<div class="tag">다섯 사업 꽃밭을 돌아가며, 비비🐝가 떠주는 주 3회 꿀 한 스푼</div>'

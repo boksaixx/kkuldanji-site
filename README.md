@@ -1,53 +1,73 @@
 # 꿀단지. — U+ Enterprise혁신그룹 위클리
 
-정적 뉴스레터 사이트. **콘텐츠는 Claude(구독)로 만들고, GitHub에 올리면 Vercel이 자동 배포**합니다. API 크레딧 안 씁니다.
+정적 뉴스레터 사이트 + 앱(PWA). **콘텐츠는 Claude(구독)로 만들고, GitHub에 올리면 Vercel이 자동 배포**합니다. API 크레딧 안 씁니다.
 
+## 이 사이트가 하는 일
 
-## 접근 비밀번호
+| 기능 | 동작 |
+|---|---|
+| 🔒 첫 방문 | 비밀번호(기본 `8080`) → 이름·소속팀 등록 → 입장 |
+| 🐝 재방문 | 아무것도 안 묻고 바로 입장, 상단에 "OO님 오셨어요" |
+| 📲 앱 설치 | 첫 화면·목록 페이지에 설치 버튼. 홈 화면에 아이콘 생기고 앱처럼 열림. 아이폰은 안내 모달 |
+| 📊 기록 | 누가 가입했는지 · 누가 어느 호를 읽었는지 · 투표 · "지워도 돼요" 사유 → **Supabase** |
+| 🗳️ 투표 | 각 호 하단 "다음 호 뭘로" 버튼이 실제로 집계됨 (1인 1표) |
 
-사이트 첫 진입 시 비밀번호 입력창이 뜹니다. 현재 값은 **8080** (`gate.js` 맨 위 `PASS` 변수).
-한 번 입력하면 브라우저 탭을 닫을 때까지 다시 묻지 않습니다.
+## 최초 설정 (한 번만, 20분)
 
-> ⚠️ **한계를 알고 쓰세요.** 정적 사이트라 브라우저 소스 보기로 비밀번호가 노출됩니다.
-> 외부인의 실수 유입을 막는 문일 뿐, 실제 보안 장치가 아닙니다.
-> 진짜 접근 통제가 필요하면 ①Vercel 프로젝트 설정의 Password Protection(Pro 플랜),
-> ②사내망 전용 배포, ③GitHub 리포를 Private으로 중 하나를 쓰세요.
+### 1. Supabase (등록·읽음 기록 저장소)
+1. supabase.com 가입 → **New project** (무료 플랜이면 충분)
+2. 프로젝트 열리면 왼쪽 **SQL Editor** → 이 리포의 `supabase.sql` 내용 전체 붙여넣기 → **Run**
+3. 왼쪽 **Settings → API** 에서 두 값 복사:
+   - `Project URL` (예: https://abcdefgh.supabase.co)
+   - `anon public` 키
+4. 이 리포의 `config.js` 열어서 두 값 채우기:
+   ```js
+   SUPABASE_URL: "https://abcdefgh.supabase.co",
+   SUPABASE_ANON_KEY: "eyJhbGciOi...",
+   ```
+   > anon 키는 **공개용**이라 소스에 넣어도 됩니다. `supabase.sql`의 RLS 설정으로 브라우저는 "쓰기만" 되고 읽기는 대시보드에서만 됩니다.
 
-비밀번호를 바꾸려면 `gate.js` 2번째 줄 `var PASS = "8080";` 만 수정하면 됩니다.
+5. 소속팀 목록도 `config.js`의 `TEAMS`에서 손보세요.
 
-## 구조
+### 2. GitHub → Vercel
+1. 이 폴더 전체를 GitHub 리포에 올리기 (`issues/`, `icons/` 폴더 포함)
+2. vercel.com → GitHub 로그인 → **Add New → Project** → 리포 Import → Framework **Other** → **Deploy**
+3. 나온 주소(예: `kkuldanji.vercel.app`)가 사이트이자 앱 설치 주소
+
+> PWA는 https에서만 설치돼요. Vercel은 기본 https라 추가 설정 없음.
+
+## 기록 보는 법
+Supabase 대시보드 → **Table Editor**:
+- `v_readers` — 누가 가입했고 몇 호를 읽었는지, 마지막 접속
+- `v_issue_stats` — 호별 순 독자 수·열람 수
+- `v_vote_results` — 호별 투표 결과
+- `feedback` — "지워도 돼요" 누른 사람과 사유
+
+전무 보고용 숫자는 여기서 바로 뽑으면 됩니다.
+
+## 매주 발행 (5분)
+1. Claude에게: **"오늘 AI랑 보안 꽃밭 만들어줘"** (2~3개 한 번에)
+2. 받은 HTML을 `issues/`에 추가, `issues.json`에 항목 추가 (기존 호는 그대로 — 계속 쌓임)
+3. 커밋·푸시 → Vercel이 30초 안에 배포. 앱으로 설치한 사람도 다음 열 때 새 호가 보여요
+
+## 꽃밭 6개와 리듬
+유선 🌊 · 무선 📡 · SMB 🏪 · 모빌리티 🚗 · 보안 🔐 · AI 🤖
+월·수·금 하루 2~3호. 최근 3일 이내 뉴스만. 없으면 "조용했어요" 한 줄.
+
+## 파일 구조
 ```
-index.html        ← 자동 생성. 손대지 마세요 (build_index.py가 만듦)
-issues.json       ← 호 목록(메타데이터). 새 호는 여기에 항목 하나 추가
-issues/           ← 실제 뉴스레터 HTML 파일들
-  001-2026-09-02-wire.html
-style.css         ← 공통 디자인
-build_index.py    ← issues.json → index.html
-vercel.json       ← 배포 설정
+index.html            ← 자동 생성 (build_index.py). 손대지 않음
+issues.json           ← 호 목록. 새 호는 여기 한 줄 추가
+issues/               ← 호별 HTML (계속 쌓임)
+config.js             ← 비밀번호 · Supabase 키 · 팀 목록  ← 유일하게 손볼 파일
+gate.js               ← 비밀번호·등록·환영·설치·기록 로직
+sw.js, manifest.webmanifest, icons/  ← 앱(PWA) 구성
+supabase.sql          ← DB 스키마. Supabase에 한 번 실행
+style.css             ← 디자인
+tools/                ← 호 생성 템플릿 (Claude가 참고)
 ```
 
-## 발행 리듬 (2026.09 개편)
-
-- **꽃밭 6개**: 유선 🌊 · 무선 📡 · SMB 🏪 · 모빌리티 🚗 · 보안 🔐 · **AI 🤖**
-- **하루 2~3호**를 묶어서 발행. 그중 한 편은 되도록 AI 꽃밭 (전 사업에 걸치는 주제라 자주 나옴)
-- **최근 3일 이내 뉴스**만 커버로 씀. 없으면 최대 3일까지, 그것도 없으면 "오늘은 조용했어요" 한 줄 호
-- 로테이션 예시: 월 = AI + 유선 / 수 = 보안 + 모빌리티 / 금 = AI + 무선 + SMB
-
-## 새 호 발행하는 법
-
-1. Claude에게 한 줄로 요청: **"오늘 AI랑 보안 꽃밭 만들어줘"** (2~3개 한 번에 가능)
-2. Claude가 최근 3일 뉴스를 검색해서 **완성된 HTML 파일들 + 갱신된 issues.json**을 돌려줌
-3. 받은 HTML을 `issues/` 폴더에 추가 (기존 호는 그대로 둠 — 계속 쌓이는 구조)
-   - 파일명 규칙: `번호-날짜-영문.html` (예: `007-2026-09-09-ai.html`)
-4. `issues.json`을 받은 내용으로 갱신 — **덮어쓰기가 아니라 목록에 줄이 추가된 버전**임
-5. GitHub에 커밋·푸시 → **Vercel이 30초 안에 자동 배포**
-
-> `build_index.py`를 직접 못 돌려도 됩니다. Claude가 `index.html`까지 만들어 줍니다.
-
-## Vercel 최초 연결 (한 번만)
-1. vercel.com 로그인 → **Add New → Project**
-2. 이 GitHub 리포 **Import**
-3. Framework Preset: **Other**, 나머지 기본값 → **Deploy**
-4. 끝. 이후 main 브랜치에 푸시할 때마다 자동 배포됩니다.
-
-사업 5개(유선·무선·SMB·모빌리티·보안)는 상단 필터 버튼으로 걸러 볼 수 있습니다.
+## 알아둘 것
+- **비밀번호는 소스에서 보입니다.** 외부인 실수 유입을 막는 문이지 보안이 아니에요. 실제 운영 땐 리포를 Private으로 두거나 Vercel Password Protection(Pro)을 쓰세요.
+- 등록 정보는 사용자 브라우저(localStorage)에도 저장돼요. 브라우저 데이터를 지우면 다시 등록 화면이 나오고, 그 사람은 DB에 새 행으로 잡힙니다(이름·팀으로 합쳐 보면 됨).
+- 비밀번호 변경: `config.js`의 `PASS`.

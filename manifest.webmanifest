@@ -1,0 +1,16 @@
+{
+  "name": "꿀단지 — U+ Enterprise혁신그룹 위클리",
+  "short_name": "꿀단지",
+  "description": "여섯 사업 꽃밭을 돌아가며 비비가 떠주는 꿀 한 스푼",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFF8EC",
+  "theme_color": "#9FE0EC",
+  "lang": "ko",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
